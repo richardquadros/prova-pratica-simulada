@@ -23,7 +23,7 @@ public class Aluno {
 	public Aluno(String nome, String email, Curso curso) {
 		this.nome = nome;
 		this.email = email;
-		this.curso = curso;
+		curso.adicionarAluno(this);
 	}
 
 	public String getNome() {

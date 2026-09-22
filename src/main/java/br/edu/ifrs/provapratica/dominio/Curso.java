@@ -28,7 +28,7 @@ public class Curso {
 		this.alunos = new ArrayList<Aluno>();
 		}
 
-	public Curso(String nome, int cargaHoraria, StatusCurso status, List<Aluno> alunos) {
+	public Curso(String nome, int cargaHoraria, StatusCurso status) {
 		this();
 		this.nome = nome;
 		this.cargaHoraria = cargaHoraria;
