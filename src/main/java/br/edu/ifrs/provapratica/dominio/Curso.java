@@ -3,11 +3,15 @@ package br.edu.ifrs.provapratica.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+@Entity
 public class Curso {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,15 +19,17 @@ public class Curso {
 	private Long id;
 	private String nome;
 	private int cargaHoraria;
-	
+	@Enumerated(EnumType.STRING)
 	private StatusCurso status;
 	@OneToMany(mappedBy = "curso")
-	private List<Aluno> alunos = new ArrayList<>();
+	private List<Aluno> alunos;
 	
-	public Curso() {}
+	public Curso() {
+		this.alunos = new ArrayList<Aluno>();
+		}
 
 	public Curso(String nome, int cargaHoraria, StatusCurso status, List<Aluno> alunos) {
-		super();
+		this();
 		this.nome = nome;
 		this.cargaHoraria = cargaHoraria;
 		this.status = status;
@@ -57,13 +63,17 @@ public class Curso {
 		return id;
 	}
 	
-	public List<Aluno> listarAlunos() {
-		List<Aluno> listaAlunos = this.alunos;
-		for(Aluno aluno: listaAlunos) {
-			listaAlunos.add(aluno);
-		}
-		
+	public void adicionarAluno(Aluno aluno) {
+		alunos.add(aluno);
+		aluno.setCurso(this);
+	}
+	
+	
+	
+	public List<Aluno> getAlunos() {
 		return alunos;
 	}
+
+	
 	
 }
